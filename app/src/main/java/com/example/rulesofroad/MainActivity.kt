@@ -13,6 +13,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.example.rulesofroad.databinding.ActivityMainBinding
+import com.example.rulesofroad.model.Symbol
+import java.lang.NullPointerException
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     private lateinit var navController: NavController
@@ -27,8 +29,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             setOf(
                 R.id.homeFragment,
                 R.id.favoriteFragment,
-                R.id.infoFragment,
-                R.id.detailFragment
+                R.id.infoFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -84,6 +85,15 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             }
             R.id.homeFragment -> {
                 showBottomNav()
+            }
+            R.id.detailFragment -> {
+                hideBottomNav()
+                val symbol = arguments?.getSerializable("symbol") as? Symbol
+                destination.label = symbol?.name
+            }
+            R.id.editFragment -> {
+                val symbol = arguments?.getSerializable("symbol") as? Symbol
+                destination.label = symbol?.name
             }
         }
     }

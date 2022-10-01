@@ -22,3 +22,12 @@ fun ImageView.toByteArray(): ByteArray {
 fun ByteArray.toBitmap(): Bitmap? {
     return BitmapFactory.decodeByteArray(this, 0, this.size)
 }
+object Constants {
+    val array = arrayOf(
+        "Ogohlantiruvchi",
+        "Imtiyozli",
+        "Ta'qiqlovchi",
+        "Buyuruvchi",
+        "Servis belgilari"
+    )
+}

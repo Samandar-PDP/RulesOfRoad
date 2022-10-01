@@ -3,6 +3,8 @@ package com.example.rulesofroad.fragment
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,15 +62,27 @@ class HomeFragment : Fragment(), ItemClickListener {
     }
 
     override fun onItemClicked(symbol: Symbol) {
-        // itemClicked, navigate to detail fragment
+        val bundle = bundleOf("symbol" to symbol)
+        findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
     }
 
     override fun onDeleteClicked(symbol: Symbol, pos: Int) {
-        // onDeleteClicked, delete this item
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Delete")
+            setMessage("Do you want to delete ${symbol.name}?")
+            setPositiveButton("Yes") { di, _ ->
+                symbolDatabase.deleteSymbol(symbol.id!!)
+                symbolAdapter.notifyItemRemoved(pos)
+                symbolAdapter.symbolList.removeAt(pos)
+                di.dismiss()
+            }
+            setNegativeButton("Cancel", null)
+        }.create().show()
     }
 
     override fun onEditClicked(symbol: Symbol, pos: Int) {
-        // onEditClicked, edit this item
+        val bundle = bundleOf("symbol" to symbol)
+        findNavController().navigate(R.id.action_homeFragment_to_editFragment, bundle)
     }
 
     override fun onLikeClicked(symbol: Symbol) {

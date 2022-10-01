@@ -1,8 +1,11 @@
 package com.example.rulesofroad.adaptaer
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rulesofroad.R
 import com.example.rulesofroad.databinding.ItemLayoutBinding
 import com.example.rulesofroad.model.Symbol
 import com.example.rulesofroad.util.ItemClickListener
@@ -13,12 +16,14 @@ class SymbolAdapter(
 ) : RecyclerView.Adapter<SymbolAdapter.SymbolViewHolder>() {
 
     var symbolList: MutableList<Symbol> = mutableListOf()
+    private lateinit var context: Context
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymbolViewHolder {
+        context = parent.context
         return SymbolViewHolder(
             ItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
+                LayoutInflater.from(context),
                 parent,
                 false
             )
@@ -45,9 +50,6 @@ class SymbolAdapter(
                 }
                 itemView.setOnClickListener {
                     itemClickListener.onItemClicked(symbol)
-                }
-                btnLike.setOnClickListener {
-                    itemClickListener.onLikeClicked(symbol)
                 }
             }
         }

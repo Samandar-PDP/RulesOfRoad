@@ -7,4 +7,8 @@ interface DatabaseService {
     fun editSymbol(symbol: Symbol)
     fun deleteSymbol(id: Int)
     fun getAllSymbols(): MutableList<Symbol>
+
+    fun savFavSymbol(symbol: Symbol)
+    fun getFavSymbols(): MutableList<Symbol>
+    fun deleteFavSymbol(id: Int)
 }
